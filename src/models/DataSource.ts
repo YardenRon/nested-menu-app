@@ -16,8 +16,7 @@ function getDataFromLocalStorage() {
   }
 
   try {
-    const treeObject = JSON.parse(serializedTree);
-    return treeObject;
+    return JSON.parse(serializedTree);
   } catch (error) {
     console.error("Could not parse tree from local storage:", error);
     return null;
@@ -31,14 +30,33 @@ function getDataFromSessionStorage() {
   }
 
   try {
-    const treeObject = JSON.parse(serializedTree);
-    return treeObject;
+    return JSON.parse(serializedTree);
   } catch (error) {
     console.error("Could not parse tree from session storage:", error);
     return null;
   }
 }
 
+function getDataFromCookie() {
+  try {
+    let name = "treeData=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let components = decodedCookie.split(';');
+    for (let c of components) {
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) === 0) {
+        const serializedTree = c.substring(name.length, c.length);
+        return JSON.parse(serializedTree);
+      }
+    }
+    return null;
+  } catch (error) {
+    console.error("Could not parse tree from cookie:", error);
+    return null;
+  }
+}
 
 export function getData(dataSource: DataSource) {
   switch (dataSource) {
@@ -49,7 +67,7 @@ export function getData(dataSource: DataSource) {
     case DataSource.SessionStorage:
       return getDataFromSessionStorage();
     case DataSource.Cookies:
-      return null;
+      return getDataFromCookie();
     case DataSource.IndexedDB:
       return null;
     default:
@@ -79,6 +97,22 @@ function saveDataToSessionStorage(treeObject: TreeNode) {
   }
 }
 
+function saveDataToCookie(treeObject: TreeNode) {
+  try {
+    const name = 'treeData';
+    const serializedTree = JSON.stringify(treeObject);
+
+    const d = new Date();
+    const daysToExpire = 2;
+    d.setTime(d.getTime() + (daysToExpire * 24 * 60 * 60 * 1000));
+    const expires = "expires=" + d.toUTCString();
+
+    document.cookie = `${name}=${serializedTree};${expires};path=/`;
+  } catch (error) {
+    console.error("Could not save tree to cookie:", error);
+  }
+}
+
 export function saveData(dataSource: DataSource, data: TreeNode) {
   switch (dataSource) {
     case DataSource.Memory:
@@ -91,6 +125,7 @@ export function saveData(dataSource: DataSource, data: TreeNode) {
       saveDataToSessionStorage(data);
       break;
     case DataSource.Cookies:
+      saveDataToCookie(data);
       break;
     case DataSource.IndexedDB:
       break;

@@ -17,10 +17,7 @@ function App() {
   const [dataSourceTarget, setDataSourceTarget] = useState<DataSource>(DataSource.Memory);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
-  console.log("datasource = " + DataSource[dataSource]);
-
   useEffect(() => {
-    console.log("Reloading tree...");
     const tree = getData(dataSource);
     onReplace(tree);
   }, [dataSource]);
