@@ -1,0 +1,10 @@
+body, html {
+  height: calc(100vh - 40px);
+  width: calc(100vw - 40px);
+  margin: 0;
+}
+
+.App {
+  height: 30%;
+  padding: 20px;
+}

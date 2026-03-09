@@ -1,0 +1,14 @@
+.menu-item {
+    background-color: white;
+    color: black;
+    opacity: unset;
+    position: relative;
+    padding: 5px;
+    border-radius: inherit;
+}
+
+.hovered {
+    background-color: #3977cf;
+    opacity: 0.9;
+    color: white;
+}
