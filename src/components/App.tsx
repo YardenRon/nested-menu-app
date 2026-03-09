@@ -87,6 +87,7 @@ function App() {
       </Button>
       <br />
       <Typography>* Local Storage size limit is 5MB per origin. when it clears?</Typography>
+      <Typography>* Session Storage size limit is 5MB-10MB per origin. when it clears?</Typography>
     </div>
   );
 }

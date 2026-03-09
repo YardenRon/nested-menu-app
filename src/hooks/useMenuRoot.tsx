@@ -1,6 +1,7 @@
 import { useCallback, useContext } from 'react';
 import { MenuRootContext } from '../context/MenuRootContext';
 import { NodeType, TreeNode } from '../models/TreeNode';
+import { find, changeNodeType, createChild, removeChild } from '../utils/tree-node-utils';
 
 const useMenuRoot = () => {
     const context = useContext(MenuRootContext);
@@ -13,17 +14,17 @@ const useMenuRoot = () => {
 
     const onAdd = useCallback((nodeId: string) => {
         setRoot((draft) => {
-            const node = draft.find(nodeId);
+            const node = find(draft, nodeId);
             if (node) {
-                node.changeTo(NodeType.SubMenu);
-                node.createChild("new item");
+                changeNodeType(node, NodeType.SubMenu);
+                createChild(node, "new item");
             }
         });
     }, [setRoot]);
 
     const onRename = useCallback((nodeId: string, newName: string) => {
         setRoot((draft) => {
-            const node = draft.find(nodeId);
+            const node = find(draft, nodeId);
             if (node) {
                 node.name = newName;
             }
@@ -32,9 +33,9 @@ const useMenuRoot = () => {
 
     const onDelete = useCallback((nodeId: string, parentId: string) => {
         setRoot((draft) => {
-            const parent = draft.find(parentId);
+            const parent = find(draft, parentId);
             if (parent) {
-                parent.removeChild(nodeId);
+                removeChild(parent, nodeId);
             }
         });
     }, [setRoot]);
