@@ -53,7 +53,7 @@ function App() {
           <MenuItem value={DataSource.LocalStorage}>{DataSource[DataSource.LocalStorage]}</MenuItem>
           <MenuItem value={DataSource.SessionStorage}>{DataSource[DataSource.SessionStorage]}</MenuItem>
           <MenuItem value={DataSource.Cookies}>{DataSource[DataSource.Cookies]}</MenuItem>
-          <MenuItem value={DataSource.IndexedDB}>{DataSource[DataSource.IndexedDB]}</MenuItem>
+          {/* <MenuItem value={DataSource.IndexedDB}>{DataSource[DataSource.IndexedDB]}</MenuItem> */}
         </Select>
       </FormControl>
       <Button sx={{ marginBottom: "5px" }} size="large" variant={isMenuOpen ? "contained" : "outlined"} onClick={toggleMenu} endIcon={<ArrowDropDownIcon />}>
@@ -76,7 +76,7 @@ function App() {
           <MenuItem value={DataSource.LocalStorage}>{DataSource[DataSource.LocalStorage]}</MenuItem>
           <MenuItem value={DataSource.SessionStorage}>{DataSource[DataSource.SessionStorage]}</MenuItem>
           <MenuItem value={DataSource.Cookies}>{DataSource[DataSource.Cookies]}</MenuItem>
-          <MenuItem value={DataSource.IndexedDB}>{DataSource[DataSource.IndexedDB]}</MenuItem>
+          {/* <MenuItem value={DataSource.IndexedDB}>{DataSource[DataSource.IndexedDB]}</MenuItem> */}
         </Select>
       </FormControl>
       <Button sx={{ marginTop: "32px" }} variant={"contained"} onClick={onSaveClick}>
@@ -85,6 +85,7 @@ function App() {
       <br />
       <Typography>* Local Storage size limit is 5MB per origin. when it clears?</Typography>
       <Typography>* Session Storage size limit is 5MB-10MB per origin. when it clears?</Typography>
+      <Typography>* Cookie size limit is 4KB. when it clears?</Typography>
     </div>
   );
 }
